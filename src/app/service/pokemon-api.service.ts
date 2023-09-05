@@ -18,16 +18,11 @@ export class PokemonApiService {
   }
 
   getPokemonInfo(url: string): Observable<Pokemon> {
-    // Extrai o ID do URL
     const id = this.extractIdFromUrl(url);
-
-    // Faz a primeira solicitação para obter informações básicas do Pokémon
     return this.http.get<any>(url, { headers: this.getHeaders() }).pipe(
       switchMap((basicInfo) => {
-        // Faz a segunda solicitação para obter informações adicionais do Pokémon
         return this.http.get<any>(`${this.apiUrl}pokemon/${id}/`, { headers: this.getHeaders() }).pipe(
           map((details) => {
-            // Extrai as informações necessárias dos detalhes do Pokémon
             return {
               name: basicInfo.name,
               id: details.id,
@@ -44,7 +39,6 @@ export class PokemonApiService {
   }
 
   private extractIdFromUrl(url: string): number {
-    // Extrai o ID do URL usando uma expressão regular
     const match = url.match(/\/(\d+)\/$/);
     if (match) {
       return parseInt(match[1], 10);
@@ -58,7 +52,7 @@ export class PokemonApiService {
   }
 
   getDexLink(): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}pokedex/2`)
+    return this.http.get<any>(`${this.apiUrl}generation/5`)
   }
 
   getDexByGenerations(num: number): Observable<any>{

@@ -8,6 +8,11 @@ import { Pokemon } from 'src/app/models/pokemon.interface';
 })
 export class DexCardComponent {
 
-  @Input() pokemon: Pokemon | undefined;
+  @Input()
+  pokemon!: Pokemon;
+
+  addPokemonTeam(pkmn: Pokemon){
+    console.log(pkmn)
+  }
 
 }
