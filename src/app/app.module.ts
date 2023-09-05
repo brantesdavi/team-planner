@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PokemonApiService } from 'src/app/service/pokemon-api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MyTeamViewModule } from './pages/my-team/feature/my-team-view/my-team-view.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MyTeamViewModule
   ],
   providers: [ PokemonApiService ],
   bootstrap: [AppComponent]

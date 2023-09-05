@@ -7,38 +7,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent{
 
   title = 'team-planner';
 
-  subscription: Subscription | undefined
 
   constructor(
-    private pokemonService: PokemonApiService
+
   ){}
 
-  ngOnInit(){
-    this.getGenerations()
-    this.getPkmnByGeneration(2)
-  }
-
-  getGenerations(): void{
-    this.subscription = this.pokemonService.getGenerations().subscribe({
-      next: generations => console.log(generations),
-      error: er => console.error(er)
-    })
-  }
-
-
-  getPkmnByGeneration(dexNum: number): void{
-    this.pokemonService.getPkmnByGenerations(dexNum).subscribe({
-      next: pkmns => console.log(pkmns),
-      error: er => console.error(er)
-    })
-  }
-
-  ngOnDestroy(){
-    this.subscription?.unsubscribe();
-  }
 
 }
