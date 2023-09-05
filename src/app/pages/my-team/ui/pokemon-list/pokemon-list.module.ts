@@ -11,7 +11,7 @@ import { TeamCardModule } from '../../shared/team-card/team-card.module';
   ],
   imports: [
     CommonModule,
-    TeamCardModule
+    TeamCardModule,
   ],
   exports: [
     PokemonListComponent

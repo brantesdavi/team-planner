@@ -1,1 +1,7 @@
-<p>pokemon-list works!</p>
+<div *ngFor="let pokemon of pokemonList" class="w-full flex justify-center" >
+  <app-team-card [pokemon]="pokemon"></app-team-card>
+</div>
+
+
+
+

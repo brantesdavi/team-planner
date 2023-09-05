@@ -1,14 +1,15 @@
 <div class="" style="width: 168px;">
-  <div class="w-full">
-    <img src="https://archives.bulbagarden.net/media/upload/5/58/HOME0740.png">
+  <div class="w-full flex justify-center items-center">
+    {{this.pokemon | json}}
+    <img [src]="this.pokemon?.imageDefault" style="height: 130px;">
   </div>
-  <div class="w-full flex">
-    <div>Crabonable</div>
-    <div>
-
+  <div class="px-2">
+    <div class="w-full flex justify-between">
+      <div><span class="text-lg">{{this.pokemon?.name}}</span></div>
+      <div>
+        <fa-icon class="text-sm" [icon]="faPen" style="color: #b4b4b4"></fa-icon>
+      </div>
     </div>
-  </div>
-  <div>
-    fighting
+    {{this.pokemon?.types?.[0]?.type}}
   </div>
 </div>

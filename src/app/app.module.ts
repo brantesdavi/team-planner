@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { PokemonApiService } from 'src/app/service/pokemon-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MyTeamViewModule } from './pages/my-team/feature/my-team-view/my-team-view.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { MyTeamViewModule } from './pages/my-team/feature/my-team-view/my-team-v
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MyTeamViewModule
+    MyTeamViewModule,
+    FontAwesomeModule
   ],
   providers: [ PokemonApiService ],
   bootstrap: [AppComponent]
