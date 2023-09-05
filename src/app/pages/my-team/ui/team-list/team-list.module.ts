@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TeamListComponent } from './team-list.component';
+import { TeamCardModule } from '../../shared/team-card/team-card.module';
 
 
 
@@ -9,7 +10,8 @@ import { TeamListComponent } from './team-list.component';
     TeamListComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    TeamCardModule
   ],
   exports: [
     TeamListComponent
