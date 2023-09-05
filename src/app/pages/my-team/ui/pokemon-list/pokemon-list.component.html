@@ -1,5 +1,8 @@
-<div *ngFor="let pokemon of pokemonList" class="w-full flex justify-center" >
-  <app-team-card [pokemon]="pokemon"></app-team-card>
+<div class="grid grid-cols-12 gap-x-6 gap-y-4" style="width: 1128px;">
+  <div *ngFor="let pokemon of pokemonList">
+    <!-- <app-team-card [pokemon]="pokemon"></app-team-card> -->
+    <app-dex-card [pokemon]="pokemon"></app-dex-card>
+  </div>
 </div>
 
 

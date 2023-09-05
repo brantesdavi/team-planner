@@ -10,6 +10,9 @@ import { DexCardComponent } from './dex-card.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    DexCardComponent
   ]
 })
 export class DexCardModule { }
