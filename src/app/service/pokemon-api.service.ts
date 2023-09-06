@@ -46,29 +46,8 @@ export class PokemonApiService {
     return 0;
   }
 
-
-  getGenerations(): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}generation`)
-  }
-
-  getDexLink(): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}generation/5`)
-  }
-
-  getDexByGenerations(num: number): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}pokedex/${num}`)
-  }
-
-  getPokemonByNumber(num: number): Observable<Pokemon>{
-    return this.http.get<any>(`${this.apiUrl}pokemon/${num}`)
-  }
-
-  getPokemonImage(): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}pokemon-form/1`)
-  }
-
-  getPokemonType(num: number): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}pokemon-form/${num}`)
+  getDexLink(num: number): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}generation/${num}`)
   }
 
 }

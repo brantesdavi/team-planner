@@ -25,7 +25,7 @@ export class MyTeamViewComponent implements OnInit {
   }
 
   getPokemonInfo(): void{
-    this.pokemonService.getDexLink().subscribe(res => {
+    this.pokemonService.getDexLink(9).subscribe(res => {
       if (res && res.pokemon_species) {
         const urls = res.pokemon_species.map((entry: any) => entry.url);
         urls.forEach((url: string) => {

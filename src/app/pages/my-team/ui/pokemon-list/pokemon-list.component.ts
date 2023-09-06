@@ -11,10 +11,23 @@ export class PokemonListComponent implements OnInit {
   @Input()
   pokemonList: Pokemon[] = [];
 
+  pokemonTeam: Pokemon[] = [];
 
-
-  ngOnInit(){
-    console.log("array que está sendo recebido: "+this.pokemonList)
+  addPokemonTeam(pkm: Pokemon): void{
+    if(this.pokemonTeam.length < 6){
+      this.pokemonTeam.push(pkm)
+      this.pokemonList = this.pokemonList.filter(objeto => objeto.id !== pkm.id);
+    }
+    console.log(this.pokemonTeam)
   }
+
+  removePokemonTeam(pkm:Pokemon): void{
+    this.pokemonList.push(pkm)
+    this.pokemonTeam = this.pokemonTeam.filter(objeto => objeto.id !== pkm.id);
+  }
+
+  ngOnInit() {
+  }
+
 
 }
