@@ -11,8 +11,4 @@ export class DexCardComponent {
   @Input()
   pokemon!: Pokemon;
 
-  addPokemonTeam(pkmn: Pokemon){
-    console.log(pkmn)
-  }
-
 }

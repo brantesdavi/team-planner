@@ -1,16 +1,13 @@
-<span>My Team for Pokémon Scarlet</span>
-<div class="grid grid-cols-6 gap-x-6" style="height: 168px;">
+<span class="font-bold" style="font-size: 32px; ;" >My Team for Pokémon Scarlet</span>
+<div class="grid grid-cols-6 gap-x-6" style="height: 218px; padding-top: 8px">
   <div *ngFor="let pokemon of pokemonTeam">
     <app-team-card [pokemon]="pokemon" (click)="removePokemonTeam(pokemon)"></app-team-card>
   </div>
 </div>
 
-<span>Pokémon available</span>
+<span class="text-lg font-bold">Pokémon available</span>
 <div class="grid grid-cols-12 gap-x-6 gap-y-4" style="width: 1128px;">
   <div *ngFor="let pokemon of pokemonList">
-    <app-dex-card [pokemon]="pokemon" (click)="addPokemonTeam(pokemon)"></app-dex-card>
+    <app-dex-card [pokemon]="pokemon"  (click)="addPokemonTeam(pokemon)"></app-dex-card>
   </div>
 </div>
-
-
-

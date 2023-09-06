@@ -2,17 +2,14 @@ export interface Pokemon{
   id?: number;
   name?: string;
   imageDefault?: string;
-  types?: Types[];
+  types?: Type[];
 }
 export interface Pokedex{
   name?: string;
   sprite?: string
 }
 
-export interface Types{
+export interface Type{
   slot?: number;
-  type?: [
-    name?: string,
-    url?: string
-  ]
+  name?: string;
 }

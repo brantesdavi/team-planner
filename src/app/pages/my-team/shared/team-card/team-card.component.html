@@ -9,6 +9,10 @@
         <fa-icon class="text-sm" [icon]="faPen" style="color: #b4b4b4"></fa-icon>
       </div>
     </div>
-    {{this.pokemon?.types?.[0]?.type}}
+    <div class="flex items-center py-2 gap-x-2">
+      <div *ngFor="let type of this.pokemon?.types; let i = index;">
+        <app-type-tag class="text-sm" [type]="this.pokemon?.types?.[i]"></app-type-tag>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,0 +1,24 @@
+<div [ngClass]="{
+  'bg-normal': type?.name === 'normal',
+  'bg-grass': type?.name === 'grass',
+  'bg-fire': type?.name === 'fire',
+  'bg-water': type?.name === 'water',
+  'bg-electric': type?.name === 'electric',
+  'bg-psychic': type?.name === 'psychic',
+  'bg-bug': type?.name === 'bug',
+  'bg-fighting': type?.name === 'fighting',
+  'bg-flying': type?.name === 'flying',
+  'bg-poison': type?.name === 'poison',
+  'bg-ground': type?.name === 'ground',
+  'bg-rock': type?.name === 'rock',
+  'bg-ghost': type?.name === 'ghost',
+  'bg-steel': type?.name === 'steel',
+  'bg-ice': type?.name === 'ice',
+  'bg-dragon': type?.name === 'dragon',
+  'bg-dark': type?.name === 'dark',
+  'bg-fairy': type?.name === 'fairy',
+}">
+  <span class="px-2">
+    {{type?.name}}
+  </span>
+</div>

@@ -18,7 +18,6 @@ export class PokemonListComponent implements OnInit {
       this.pokemonTeam.push(pkm)
       this.pokemonList = this.pokemonList.filter(objeto => objeto.id !== pkm.id);
     }
-    console.log(this.pokemonTeam)
   }
 
   removePokemonTeam(pkm:Pokemon): void{
