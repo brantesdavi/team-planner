@@ -22,7 +22,11 @@ module.exports = {
         'dragon': '#A17DF9',
         'dark': '#A39288',
         'fairy': '#F6BDCB',
-      }
+        'grey': '#B5B5B5'
+      },
+      fontFamily: {
+        montserrat: ['Montserrat', 'sans'],
+      },
     },
   },
   plugins: [],

@@ -47,7 +47,11 @@ export class PokemonApiService {
   }
 
   getDexLink(num: number): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}generation/${num}`)
+    return this.http.get<any>(`${this.apiUrl}pokedex/${num}`)
+  }
+
+  getGames(): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}version-group/`)
   }
 
 }

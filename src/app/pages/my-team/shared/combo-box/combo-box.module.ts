@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TeamCardComponent } from './team-card.component';
+import { ComboBoxComponent } from './combo-box.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { TypeTagModule } from './shared/type-tag/type-tag.module';
+
+
 
 @NgModule({
   declarations: [
-    TeamCardComponent
+    ComboBoxComponent
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule,
-    TypeTagModule,
+    FontAwesomeModule
   ],
   exports: [
-    TeamCardComponent
+    ComboBoxComponent
   ]
 })
-export class TeamCardModule { }
+export class ComboBoxModule { }

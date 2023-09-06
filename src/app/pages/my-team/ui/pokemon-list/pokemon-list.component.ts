@@ -1,3 +1,4 @@
+import { Select } from './../../../../models/pokemon.interface';
 import { Component, Input, OnInit } from '@angular/core';
 import { Pokemon } from 'src/app/models/pokemon.interface';
 

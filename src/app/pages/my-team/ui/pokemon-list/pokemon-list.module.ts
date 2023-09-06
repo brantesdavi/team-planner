@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PokemonListComponent } from './pokemon-list.component';
 import { TeamCardModule } from '../../shared/team-card/team-card.module';
 import { DexCardModule } from '../../shared/dex-card/dex-card.module';
+import { ComboBoxModule } from '../../shared/combo-box/combo-box.module';
 
 
 
@@ -13,7 +14,8 @@ import { DexCardModule } from '../../shared/dex-card/dex-card.module';
   imports: [
     CommonModule,
     TeamCardModule,
-    DexCardModule
+    DexCardModule,
+    ComboBoxModule
   ],
   exports: [
     PokemonListComponent

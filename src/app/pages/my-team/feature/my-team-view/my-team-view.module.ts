@@ -1,3 +1,4 @@
+import { ComboBoxModule } from './../../shared/combo-box/combo-box.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MyTeamViewComponent } from './my-team-view.component';
@@ -13,7 +14,8 @@ import { TeamListModule } from '../../ui/team-list/team-list.module';
   imports: [
     CommonModule,
     PokemonListModule,
-    TeamListModule
+    TeamListModule,
+    ComboBoxModule
   ],
   exports: [
     MyTeamViewComponent

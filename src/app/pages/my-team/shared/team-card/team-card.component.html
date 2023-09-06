@@ -11,7 +11,7 @@
     </div>
     <div class="flex items-center py-2 gap-x-2">
       <div *ngFor="let type of this.pokemon?.types; let i = index;">
-        <app-type-tag class="text-sm" [type]="this.pokemon?.types?.[i]"></app-type-tag>
+        <app-type-tag class="text-sm text-gray-950" [type]="this.pokemon?.types?.[i]"></app-type-tag>
       </div>
     </div>
   </div>

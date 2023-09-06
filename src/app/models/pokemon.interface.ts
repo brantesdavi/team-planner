@@ -13,3 +13,8 @@ export interface Type{
   slot?: number;
   name?: string;
 }
+
+export interface Select{
+  text: string;
+  value: number[];
+}
