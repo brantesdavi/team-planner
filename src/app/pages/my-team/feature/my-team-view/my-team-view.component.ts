@@ -74,17 +74,18 @@ export class MyTeamViewComponent implements OnInit {
   ){}
 
   ngOnInit(){
-    // this.getPokemonInfo(2);
+    this.getPokemonInfo(1);
     this.getGames();
   }
 
   getPokemonInfo(op: any): void{
     let number = 0;
 
-    if(op.target.value) number = op.target.value
+    if(isNaN(op)) number = op.target.value;
     else number = op
 
     this.pokemonService.getDexLink(number).subscribe(res => {
+      console.log(res)
       if (res && res.pokemon_species) {
         const urls = res.pokemon_species.map((entry: any) => entry.url);
         urls.forEach((url: string) => {
