@@ -10,6 +10,8 @@ export class PokemonApiService {
 
   private apiUrl = "https://pokeapi.co/api/v2/"
 
+  private newApi = "http://localhost:3000"
+
   constructor( private http: HttpClient ) { }
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
@@ -18,7 +20,7 @@ export class PokemonApiService {
   }
 
   getPokemonInfo(url: string): Observable<Pokemon> {
-    const id = this.extractIdFromUrl(url);
+    const id = this.extractIdFromUrl(url); // passa para a funcao a url e retorna apenas o numero do id para ser pesquisado
     return this.http.get<any>(url, { headers: this.getHeaders() }).pipe(
       switchMap((basicInfo) => {
         return this.http.get<any>(`${this.apiUrl}pokemon/${id}/`, { headers: this.getHeaders() }).pipe(
@@ -53,6 +55,10 @@ export class PokemonApiService {
 
   getGames(): Observable<any>{
     return this.http.get<any>(`${this.apiUrl}version-group/`)
+  }
+
+  getNewPokemon(): Observable<any>{
+    return this.http.get<any>(`${this.newApi}/jogo/${1}`)
   }
 
 }
