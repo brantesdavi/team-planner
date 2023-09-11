@@ -2,6 +2,7 @@ export interface Pokemon{
   id?: number;
   name?: string;
   imageDefault?: string;
+  imageShiny?: string;
   types?: Type[];
 }
 export interface Pokedex{
@@ -16,5 +17,5 @@ export interface Type{
 
 export interface Select{
   text: string;
-  value: number[];
+  value: string;
 }

@@ -16,7 +16,7 @@ export class ComboBoxComponent implements OnInit{
   @Input() options: Select[] = [
     {
       text: '',
-        value: [0]
+        value: ""
     }
   ];
 

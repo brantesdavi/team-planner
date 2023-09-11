@@ -18,54 +18,52 @@ export class MyTeamViewComponent implements OnInit {
   games: Select[] = [
     {
       text: 'National Dex',
-      value: [1]
+      value: "1"
     },
     {
       text: 'Red / Blue',
-      value: [2]
+      value: "2"
     },
     {
       text: 'Silver / Gold / Crystal',
-      value: [3]
+      value: "3"
     },
     {
       text: 'Ruby / Saphiere',
-      value: [4]
+      value: "4"
     },
     {
       text: 'Diamond / Pearl / Platinum',
-      value: [6]
+      value: "6"
     },
     {
       text: 'HeartGold / SoulSilver',
-      value: [7]
+      value: "7"
     },
     {
       text: 'Black / White',
-      value: [8]
+      value: "8"
     },
     {
       text: 'Black 2 / White 2',
-      value: [9]
+      value: "9"
     },
     {
       text:  'X / Y',
-      value: [12, 13, 14]
+      value: "12, 13, 14"
     },
     {
       text:  'Omega Ruby / Alpha Saphire',
-      value: [15]
+      value: "15"
     },
     {
       text:  'Sun / Moon',
-      value: [16, 17, 18, 19, 20]
+      value: "16,17,18,19,20"
     },
     {
       text:  'Ultra Sun / Ultra Moon',
-      value: [21]
+      value: "21"
     }
-
-
   ]
 
 
@@ -74,34 +72,47 @@ export class MyTeamViewComponent implements OnInit {
   ){}
 
   ngOnInit(){
-    this.getPokemonInfo(1);
+    this.getPokemonInfo(2);
     this.getGames();
   }
 
-  getPokemonInfo(op: any): void{
-    let number = 0;
+  getPokemonInfo(op: any): void {
+    let number = "16,17,18,19,20";
+    this.pokemonInfoArray = [];
+    let urls: any[] = [];
 
-    if(isNaN(op)) number = op.target.value;
-    else number = op
+    if (isNaN(op)) number = op.target.value;
+    else number = op;
 
-    this.pokemonService.getDexLink(number).subscribe(res => {
-      console.log(res)
-      if (res && res.pokemon_species) {
-        const urls = res.pokemon_species.map((entry: any) => entry.url);
-        urls.forEach((url: string) => {
-          this.pokemonService.getPokemonInfo(url).subscribe(pokemonInfo => {
-            this.pokemonInfoArray.push(pokemonInfo);
-          });
-        });
-      }
-    });
+    const numerosArray = number.split(",");
+
+    if(number.split(","))console.log(true)
+    else console.log(false)
+
+    for (let i = 0; i < numerosArray.length; i++) {
+      this.pokemonService.getDexLink(Number(numerosArray[i])).subscribe(res => {
+        if (res && res.pokemon_entries) {
+          urls.push(res.pokemon_entries.map((entry: any) => entry.pokemon_species.url));
+          // Verifica se todas as solicitações foram concluídas antes de processar os resultados
+          if (urls.length === numerosArray.length) {
+            const uniqueUrls = Array.from(new Set(urls.flat())); // Combina e remove duplicatas
+            uniqueUrls.forEach((url: string) => {
+              this.pokemonService.getPokemonInfo(url).subscribe(pokemonInfo => {
+                this.pokemonInfoArray.push(pokemonInfo);
+              });
+            });
+          }
+        }
+      });
+    }
   }
+
 
   getGames(): void{
     this.pokemonService.getGames()
-    .subscribe({
-      next: (games) => console.log(games)
-    })
+    // .subscribe({
+    //   next: (games) => console.log(games)
+    // })
   }
 
   getPokemonImage(): void {

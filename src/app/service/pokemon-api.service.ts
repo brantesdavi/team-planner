@@ -27,6 +27,7 @@ export class PokemonApiService {
               name: basicInfo.name,
               id: details.id,
               imageDefault: details.sprites.front_default,
+              imageShiny: details.sprites.front_shiny,
               types: details.types.map((typeInfo: any) => ({
                 slot: typeInfo.slot,
                 name: typeInfo.type.name
