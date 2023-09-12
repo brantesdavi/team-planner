@@ -13,10 +13,9 @@ app.use(cors());
 const pokemonData = [
   {
     id: 1,
-    name: 'Bulbasaur',
+    nome: 'Bulbasaur',
     types: {
-      typeId_1: 1,
-      typeId_2: 4
+      typeId_1: 'Fire',
     },
     imagens: {
       normal: 'https://archives.bulbagarden.net/media/upload/9/9f/HOME0001.png',
@@ -28,7 +27,7 @@ const pokemonData = [
     id: 4,
     nome: 'Charmander',
     types: {
-      typeId_1: 2,
+      typeId_1: 'Fire',
     },
     imagens: {
       normal: 'https://archives.bulbagarden.net/media/upload/7/7d/HOME0004.png',
@@ -40,7 +39,7 @@ const pokemonData = [
     id: 7,
     nome: 'Squirtle',
     types: {
-      typeId_1: 3,
+      typeId_1: 'Water',
     },
     imagens: {
       normal: 'https://archives.bulbagarden.net/media/upload/a/a9/HOME0007.png',
@@ -52,7 +51,7 @@ const pokemonData = [
     id: 8,
     nome: 'Wartortle',
     types: {
-      typeId_1: 3,
+      typeId_1: 'Water',
     },
     imagens: {
       normal: 'https://archives.bulbagarden.net/media/upload/b/be/HOME0008.png',
@@ -60,6 +59,109 @@ const pokemonData = [
       menu: 'https://archives.bulbagarden.net/media/upload/9/97/Menu_HOME_0008.png'
     },
   },
+  {
+    id: 10,
+    nome: 'Caterpie',
+    types: {
+      typeId_1: "Bug",
+    },
+    imagens: {
+      normal: 'https://archives.bulbagarden.net/media/upload/6/6e/HOME0010.png',
+      shiny: 'https://archives.bulbagarden.net/media/upload/7/74/HOME0010_s.png',
+      menu: 'https://archives.bulbagarden.net/media/upload/9/9f/Menu_HOME_0010.png'
+    },
+  },
+  {
+    id: 13,
+    nome: 'Weedle',
+    types: {
+      typeId_1: "Bug",
+    },
+    imagens: {
+      normal: 'https://archives.bulbagarden.net/media/upload/4/4f/HOME0013.png',
+      shiny: 'https://archives.bulbagarden.net/media/upload/b/b1/HOME0013_s.png',
+      menu: 'https://archives.bulbagarden.net/media/upload/9/97/Menu_HOME_0013.png'
+    },
+  },
+  {
+    id: 16,
+    nome: 'Pidgey',
+    types: {
+      typeId_1: "Normal",
+      typeId_2: "Flying",
+    },
+    imagens: {
+      normal: 'https://archives.bulbagarden.net/media/upload/d/d0/HOME0016.png',
+      shiny: 'https://archives.bulbagarden.net/media/upload/a/af/HOME0008_s.png',
+      menu: 'https://archives.bulbagarden.net/media/upload/b/b0/Menu_HOME_0016.png'
+    },
+  },
+  {
+    id: 19,
+    nome: 'Rattata',
+    types: {
+      typeId_1: "Normal",
+    },
+    imagens: {
+      normal: 'https://archives.bulbagarden.net/media/upload/3/36/HOME0019.png',
+      shiny: 'https://archives.bulbagarden.net/media/upload/9/93/HOME0019_s.png',
+      menu: 'https://archives.bulbagarden.net/media/upload/b/be/Menu_HOME_0019.png'
+    },
+    forms: [
+      {
+        name: 'Alolan',
+        url: 'https://archives.bulbagarden.net/media/upload/d/d9/Menu_HOME_0019-Alola.png'
+      }
+    ]
+  },
+  {
+    id: 131,
+    nome: 'Lapras',
+    types: {
+      typeId_1: "Water",
+      typeId_2: "Ice",
+    },
+    imagens: {
+      normal: 'https://archives.bulbagarden.net/media/upload/e/eb/HOME0131.png',
+      shiny: 'https://archives.bulbagarden.net/media/upload/8/83/HOME0131_s.png',
+      menu: 'https://archives.bulbagarden.net/media/upload/f/fb/Menu_HOME_0131.png'
+    },
+    forms: {
+      giMax_default: 'https://archives.bulbagarden.net/media/upload/7/72/HOME0131Gi.png',
+      giMax_shiny: 'https://archives.bulbagarden.net/media/upload/2/27/HOME0131Gi_s.png'
+    }
+  },
+  {
+    id: 132,
+    nome: 'Ditto',
+    types: {
+      typeId_1: "Normal"
+    },
+    imagens: {
+      normal: 'https://archives.bulbagarden.net/media/upload/6/63/HOME0132.png',
+      shiny: 'https://archives.bulbagarden.net/media/upload/5/5d/HOME0132_s.png',
+      menu: 'https://archives.bulbagarden.net/media/upload/c/ca/Menu_HOME_0132.png'
+    }
+  },
+
+  {
+    id: 143,
+    nome: 'Snorlax',
+    types: {
+      typeId_1: "Water",
+      typeId_2: "Ice",
+    },
+    imagens: {
+      normal: 'https://archives.bulbagarden.net/media/upload/2/2c/HOME0143.png',
+      shiny: 'https://archives.bulbagarden.net/media/upload/4/4e/HOME0143_s.png',
+      menu: 'https://archives.bulbagarden.net/media/upload/b/b5/Menu_HOME_0143.png'
+    },
+    forms: {
+      giMax_default: 'https://archives.bulbagarden.net/media/upload/5/5a/HOME0143Gi.png',
+      giMax_shiny: 'https://archives.bulbagarden.net/media/upload/a/a9/HOME0143Gi_s.png'
+    }
+  },
+
   {
     id: 152,
     nome: 'Chikorita',
@@ -142,14 +244,14 @@ const jogoData = [
     nome: 'Red / Green / Blue',
     geracao: 1,
     regiao: 'Kanto',
-    pokemonIds: [1, 4, 7, 8], // IDs dos Pokémon associados a este jogo
+    pokemonIds: [1, 4, 7, 8, 10, 13, 16, 19, 131, 132, 143], // IDs dos Pokémon associados a este jogo
   },
   {
     id: 2,
     nome: 'Gold / Silver / Crystal',
     geracao: 2,
     regiao: 'Jhoto',
-    pokemonIds: [152, 155, 158], // IDs dos Pokémon associados a este jogo
+    pokemonIds: [152, 155, 158, 132, 131, 143], // IDs dos Pokémon associados a este jogo
   },
   {
     id: 3,
@@ -172,26 +274,44 @@ const pokemonTypes = [
   {
     id: 1,
     name: 'Grass',
-    icon: 'https://archives.bulbagarden.net/media/upload/e/ee/Grass_icon_SV.png',
-    color: '#fff'
+    icon: '',
+    color: ''
   },
   {
     id: 2,
     name: 'Fire',
-    icon: 'https://archives.bulbagarden.net/media/upload/e/ee/Grass_icon_SV.png',
-    color: '#fff'
+    icon: '',
+    color: ''
   },
   {
     id: 3,
     name: 'Water',
-    icon: 'https://archives.bulbagarden.net/media/upload/e/ee/Grass_icon_SV.png',
-    color: '#fff'
+    icon: '',
+    color: ''
   },
   {
     id: 4,
     name: 'Poison',
-    icon: 'https://archives.bulbagarden.net/media/upload/a/a7/Poison_icon_SV.png',
-    color: '#fff'
+    icon: '',
+    color: ''
+  },
+  {
+    id: 5,
+    name: 'Normal',
+    icon: '',
+    color: ''
+  },
+  {
+    id: 6,
+    name: 'Flying',
+    icon: '',
+    color: ''
+  },
+  {
+    id: 7,
+    name: 'Bug',
+    icon: '',
+    color: ''
   },
 
 ]
@@ -206,8 +326,6 @@ app.get('/jogo/:id', (req, res) => {
   }
 
   const pokemonDoJogo = pokemonData.filter((p) => jogo.pokemonIds.includes(p.id));
-
-
   res.json({ jogo, pokemonDoJogo });
 });
 

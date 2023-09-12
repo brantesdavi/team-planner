@@ -7,8 +7,8 @@ export interface Pokemon{
     menu: string
   }
   types?: {
-    type_1: Type,
-    type_2?: Type
+    type_1: string,
+    type_2?: string
   }
   teraType? :{
     type: string
@@ -16,8 +16,8 @@ export interface Pokemon{
   forms?: {
     mega_default?: string,
     mega_shiny?: string,
-    dynaMax_default?: string,
-    dynaMax_shiny?: string
+    giMax_default?: string,
+    giMax_shiny?: string
     others?:{
       name: string,
       images:{
@@ -28,13 +28,13 @@ export interface Pokemon{
   }
 }
 
-export interface Game{
-  id: number,
-  name: string,
-  gen: number,
-  region: string,
-  pokemonIds: number[]
-}
+// export interface Game{
+//   id: number,
+//   name: string,
+//   gen: number,
+//   region: string,
+//   pokemonIds: number[]
+// }
 
 export interface Type{
   id: number,

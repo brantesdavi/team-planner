@@ -1,6 +1,6 @@
 import { Type } from './../../../../models/pokemon.interface';
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
-import { Observable, Subscription, map, of, switchMap, tap } from 'rxjs';
+import { Observable, Subscription, map, tap } from 'rxjs';
 import { Pokemon } from 'src/app/models/pokemon.interface';
 import { PokemonApiService } from 'src/app/service/pokemon-api.service';
 
@@ -55,75 +55,51 @@ export class MyTeamViewComponent implements OnInit {
     })
   }
 
-  getNewPokemon(numGame: any): void {
-    this.pokemonList = [];
-    this.pokemonTeam = [];
+  getNewPokemon(numGame: any): void{
+    this.pokemonList = []
+    this.pokemonTeam = []
 
-    const select = this.getSelect(numGame);
+    const select = this.getSelect(numGame)
 
-    this.getPokemonGame(select);
-    this.pokemonService.getDex(select).subscribe({
+    this.getPokemonGame(select)
+    this.pokemonService.getDex(select)
+    .subscribe({
       next: (res) => {
-        this.pokemonList = [];
-        for (let i = 0; i < res.pokemonDoJogo.length; i++) {
-          const typeId_1 = res.pokemonDoJogo[i].types.typeId_1;
-          const typeId_2 = res.pokemonDoJogo[i].types.typeId_2;
+        this.pokemonList = []
+        for(let i=0;i < res.pokemonDoJogo.length; i++){
+          const pokemon: Pokemon = {
+            id: res.pokemonDoJogo[i].id,
+            name: res.pokemonDoJogo[i].nome,
+            sprites: {
+              normal: res.pokemonDoJogo[i].imagens.normal,
+              shiny: res.pokemonDoJogo[i].imagens.shiny,
+              menu: res.pokemonDoJogo[i].imagens.menu,
+            }
+            ,
+            types: {
+              type_1: res.pokemonDoJogo[i].types.typeId_1,
+              type_2: res.pokemonDoJogo[i].types.typeId_2 ? res.pokemonDoJogo[i].types.typeId_2: null
+            },
+            forms: res.pokemonDoJogo[i].forms ? res.pokemonDoJogo[i].forms : null
 
-          // Use switchMap para obter o valor real do tipo 1
-          this.getType(typeId_1).pipe(
-            switchMap(type1 => {
-              // Se typeId_2 não for nulo, também obtenha o valor real do tipo 2
-              if (typeId_2) {
-                return this.getType(typeId_2).pipe(
-                  map(type2 => ({
-                    id: res.pokemonDoJogo[i].id,
-                    name: res.pokemonDoJogo[i].nome,
-                    sprites: {
-                      normal: res.pokemonDoJogo[i].imagens.normal,
-                      shiny: res.pokemonDoJogo[i].imagens.shiny,
-                      menu: res.pokemonDoJogo[i].imagens.menu,
-                    },
-                    types: {
-                      type_1: type1,
-                      type_2: type2,
-                    },
-                  }))
-                );
-              } else {
-                // Se typeId_2 for nulo, retorne apenas o valor do tipo 1
-                return of({
-                  id: res.pokemonDoJogo[i].id,
-                  name: res.pokemonDoJogo[i].nome,
-                  sprites: {
-                    normal: res.pokemonDoJogo[i].imagens.normal,
-                    shiny: res.pokemonDoJogo[i].imagens.shiny,
-                    menu: res.pokemonDoJogo[i].imagens.menu,
-                  },
-                  types: {
-                    type_1: type1,
-                    type_2: null,
-                  },
-                });
-              }
-            })
-          ).subscribe(pokemon => {
-            this.pokemonList.push(pokemon);
-            console.log(pokemon);
-          });
+          };
+          this.pokemonList.push(pokemon)
+          console.log(pokemon)
         }
       }
-    });
+    })
   }
 
-  getType(typeID: number): Observable<any> {
-    return this.pokemonService.getType(typeID).pipe(
-      map(res => ({
-        id: res.type.id,
-        name: res.type.name,
-        icon: res.type.icon,
-        color: res.type.color
-      }))
-    );
+  getType(typeID: number): any{
+    return this.pokemonService.getType(typeID)
+      .pipe(
+        map(type => [{
+          id: type.id,
+          name: type.name,
+          icon: type.icon,
+          color: type.color
+        }])
+      )
   }
 
   getGameList(): void{
