@@ -14,13 +14,15 @@ export class PokemonListComponent implements OnInit, OnChanges {
 
   @Input() pokemonGame: string | undefined;
 
-  @Input() gameTitle: string ="aa";
+  @Input() gameTitle: string ="";
 
 
   addPokemonTeam(pkm: Pokemon): void{
     if(this.pokemonTeam.length < 6){
       this.pokemonTeam.push(pkm)
       this.pokemonList = this.pokemonList.filter(objeto => objeto.id !== pkm.id);
+      const key = this.gameTitle
+      this.saveTeamOnCache(key, this.pokemonTeam)
     }
   }
 
@@ -29,7 +31,32 @@ export class PokemonListComponent implements OnInit, OnChanges {
     this.pokemonTeam = this.pokemonTeam.filter(objeto => objeto.id !== pkm.id);
   }
 
+  saveTeamOnCache(key: string, team: Pokemon[]): void{
+    try{
+      const arrayJSON = JSON.stringify(team)
+
+      localStorage.setItem(key, arrayJSON);
+      console.log(key)
+      console.log('Array de objetos salvo no cache com sucesso')
+    } catch(er){
+      console.error('Erro ao salvar o array no cache: '+er)
+    }
+  }
+
   ngOnInit() {
+    const key = this.gameTitle
+
+    const valorDoCache = localStorage.getItem(key.toString());
+
+    console.log(valorDoCache)
+    // if (valorDoCache) {
+    //   try {
+    //     // Converta o valor do cache de volta para um array de objetos
+    //     this.pokemonTeam = JSON.parse(valorDoCache);
+    //   } catch (erro) {
+    //     console.error('Erro ao analisar os dados do cache:', erro);
+    //   }
+    // }
   }
 
   ngOnChanges(){

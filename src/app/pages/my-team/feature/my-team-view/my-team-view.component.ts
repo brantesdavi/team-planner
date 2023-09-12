@@ -84,7 +84,6 @@ export class MyTeamViewComponent implements OnInit {
 
           };
           this.pokemonList.push(pokemon)
-          console.log(pokemon)
         }
       }
     })

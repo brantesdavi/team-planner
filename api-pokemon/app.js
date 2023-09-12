@@ -15,7 +15,8 @@ const pokemonData = [
     id: 1,
     nome: 'Bulbasaur',
     types: {
-      typeId_1: 'Fire',
+      typeId_1: 'Grass',
+      typeId_2: 'Poison',
     },
     imagens: {
       normal: 'https://archives.bulbagarden.net/media/upload/9/9f/HOME0001.png',
