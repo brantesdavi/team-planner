@@ -11,6 +11,8 @@ export class TeamCardComponent implements OnInit {
 
   faPen = faPen;
 
+  @Input() pokemon: Pokemon | undefined;
+
   ngOnInit(){
 
   }

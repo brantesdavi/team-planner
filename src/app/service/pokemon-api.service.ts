@@ -61,4 +61,16 @@ export class PokemonApiService {
     return this.http.get<any>(`${this.newApi}/jogo/${num}`)
   }
 
+  getGames(): Observable<any>{
+    return this.http.get<any>(`${this.newApi}/games`)
+  }
+
+  getGame(id: number):Observable<any>{
+    return this.http.get<any>(`${this.newApi}/games/${id}`)
+  }
+
+  getType(id: number):Observable<any>{
+    return this.http.get<any>(`${this.newApi}/types/${id}`)
+  }
+
 }

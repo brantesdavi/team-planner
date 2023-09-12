@@ -6,10 +6,41 @@ export interface Pokemon{
     shiny: string,
     menu: string
   }
-  type: {
-    type_1: string,
-    type_2?: string
+  types?: {
+    type_1: Type,
+    type_2?: Type
   }
+  teraType? :{
+    type: string
+  }
+  forms?: {
+    mega_default?: string,
+    mega_shiny?: string,
+    dynaMax_default?: string,
+    dynaMax_shiny?: string
+    others?:{
+      name: string,
+      images:{
+        name: string,
+        url: string
+      }
+    }
+  }
+}
+
+export interface Game{
+  id: number,
+  name: string,
+  gen: number,
+  region: string,
+  pokemonIds: number[]
+}
+
+export interface Type{
+  id: number,
+  name: string,
+  icon?: string,
+  color: string
 }
 // export interface Pokemon{
 //   id?: number;

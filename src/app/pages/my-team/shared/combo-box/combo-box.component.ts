@@ -11,13 +11,8 @@ export class ComboBoxComponent implements OnInit{
 
   faChevronDown = faChevronDown
 
-  // // @Input() option: Select[] = [];
-  // @Input() options: Select[] = [
-  //   {
-  //     text: '',
-  //       value: ""
-  //   }
-  // ];
+  selectedGame: any;
+  @Input() options: any[] = [];
 
   ngOnInit(): void {
   }

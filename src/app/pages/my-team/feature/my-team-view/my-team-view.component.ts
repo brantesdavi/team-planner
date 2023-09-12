@@ -1,5 +1,6 @@
+import { Type } from './../../../../models/pokemon.interface';
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
-import { Observable, Subscription, map, tap } from 'rxjs';
+import { Observable, Subscription, map, of, switchMap, tap } from 'rxjs';
 import { Pokemon } from 'src/app/models/pokemon.interface';
 import { PokemonApiService } from 'src/app/service/pokemon-api.service';
 
@@ -13,7 +14,14 @@ export class MyTeamViewComponent implements OnInit {
   subscription: Subscription | undefined
 
   pokemon$: Observable<Pokemon[]> | null = null; // Inicialize como null ou um Observable vazio
-  pokemonList: any[]= [];
+  pokemonList: Pokemon[]= [];
+  pokemonTeam: Pokemon[] = []
+  gameList: any[]= [];
+
+  gameTitle: string = '';
+
+  selectedGame: string= '';
+  type$: any[] = [];
 
   constructor(
     private pokemonService: PokemonApiService
@@ -23,137 +31,114 @@ export class MyTeamViewComponent implements OnInit {
     // this.getPokemonInfo(2);
     // this.getGames();
     this.getNewPokemon(1);
+    this.getGameList();
+    this.getPokemonGame(1)
   }
 
+  getSelect(op: any): number{
+    if(typeof op === 'number'){
+      return op
+    }
+    else{
+      const selectedValue:number = op.target.value;
+      this.selectedGame = op.target;
+      return selectedValue
+    }
+  }
 
-
-  getNewPokemon(numGame: number): void{
-    this.pokemonService.getDex(numGame)
+  getPokemonGame(gameId: number): void{
+    this.pokemonService.getGame(gameId)
     .subscribe({
       next: (res) => {
-        for(let i=0;i < res.pokemonDoJogo.length; i++){
-          // console.log(res.pokemonDoJogo[i])
-          const pokemon: Pokemon = {
-            id: res.pokemonDoJogo[i].id,
-            name: res.pokemonDoJogo[i].nome,
-            sprites: {
-              normal: res.pokemonDoJogo[i].imagens.normal,
-              shiny: res.pokemonDoJogo[i].imagens.shiny,
-              menu: res.pokemonDoJogo[i].imagens.menu,
-            },
-            type: {
-              type_1: res.pokemonDoJogo[i].tipos[0],
-              type_2: res.pokemonDoJogo[i].tipos[1] || '', // Defina um valor padrão caso type_2 não exista
-            },
-          };
-          this.pokemonList.push(pokemon)
-        }
+        this.gameTitle = res.game.nome
       }
     })
   }
 
-  // getPokemonInfo(op: any): void {
-  //   let number = "";
-  //   this.pokemonInfoArray = [];
-  //   let urls: any[] = [];
+  getNewPokemon(numGame: any): void {
+    this.pokemonList = [];
+    this.pokemonTeam = [];
 
-  //   if (isNaN(op)) number = op.target.value;
-  //   else number = '2';
-  //   const numerosArray = number.split(",");
+    const select = this.getSelect(numGame);
 
-  //   for (let i = 0; i < numerosArray.length; i++) {
-  //     this.pokemonService.getDexLink(Number(numerosArray[i])).subscribe(res => {
-  //       //Pega a url de todos os Pokemon que o jogo selecionado possui
-  //       if (res && res.pokemon_entries) {
-  //         urls.push(res.pokemon_entries.map((entry: any) => entry.pokemon_species.url));
-  //         // Verifica se todas as solicitações foram concluídas antes de processar os resultados
-  //         if (urls.length === numerosArray.length) {
-  //           const uniqueUrls = Array.from(new Set(urls.flat())); // Combina e remove duplicatas
-  //           uniqueUrls.forEach((url: string) => {
-  //             this.pokemonService.getPokemonInfo(url).subscribe(pokemonInfo => {
-  //               this.pokemonInfoArray.push(pokemonInfo);
-  //             });
-  //           });
-  //         }
-  //       }
-  //     });
-  //   }
-  // }
+    this.getPokemonGame(select);
+    this.pokemonService.getDex(select).subscribe({
+      next: (res) => {
+        this.pokemonList = [];
+        for (let i = 0; i < res.pokemonDoJogo.length; i++) {
+          const typeId_1 = res.pokemonDoJogo[i].types.typeId_1;
+          const typeId_2 = res.pokemonDoJogo[i].types.typeId_2;
 
+          // Use switchMap para obter o valor real do tipo 1
+          this.getType(typeId_1).pipe(
+            switchMap(type1 => {
+              // Se typeId_2 não for nulo, também obtenha o valor real do tipo 2
+              if (typeId_2) {
+                return this.getType(typeId_2).pipe(
+                  map(type2 => ({
+                    id: res.pokemonDoJogo[i].id,
+                    name: res.pokemonDoJogo[i].nome,
+                    sprites: {
+                      normal: res.pokemonDoJogo[i].imagens.normal,
+                      shiny: res.pokemonDoJogo[i].imagens.shiny,
+                      menu: res.pokemonDoJogo[i].imagens.menu,
+                    },
+                    types: {
+                      type_1: type1,
+                      type_2: type2,
+                    },
+                  }))
+                );
+              } else {
+                // Se typeId_2 for nulo, retorne apenas o valor do tipo 1
+                return of({
+                  id: res.pokemonDoJogo[i].id,
+                  name: res.pokemonDoJogo[i].nome,
+                  sprites: {
+                    normal: res.pokemonDoJogo[i].imagens.normal,
+                    shiny: res.pokemonDoJogo[i].imagens.shiny,
+                    menu: res.pokemonDoJogo[i].imagens.menu,
+                  },
+                  types: {
+                    type_1: type1,
+                    type_2: null,
+                  },
+                });
+              }
+            })
+          ).subscribe(pokemon => {
+            this.pokemonList.push(pokemon);
+            console.log(pokemon);
+          });
+        }
+      }
+    });
+  }
 
-  // getGames(): void{
-  //   this.pokemonService.getGames()
-  //   // .subscribe({
-  //   //   next: (games) => console.log(games)
-  //   // })
-  // }
+  getType(typeID: number): Observable<any> {
+    return this.pokemonService.getType(typeID).pipe(
+      map(res => ({
+        id: res.type.id,
+        name: res.type.name,
+        icon: res.type.icon,
+        color: res.type.color
+      }))
+    );
+  }
 
-  // getPokemonImage(): void {
-  //   // this.pokemon$ = this.pokemonService.getPokemonImage()
-  //   //   .pipe(
-  //   //     map(pkmn => [{
-  //   //       name: pkmn.name,
-  //   //       sprites: pkmn.sprites.front_default,
-  //   //       types: pkmn.types
-  //   //     }])
-  //   //   );
-  // }
-
-  // ngOnDestroy(){
-  //   this.subscription?.unsubscribe();
-  // }
-
-
-  // // pokemonInfoArray: Pokemon[] = [];
-
-  // // games: Select[] = [
-  // //   {
-  // //     text: 'National Dex',
-  // //     value: "1"
-  // //   },
-  // //   {
-  // //     text: 'Red / Blue',
-  // //     value: "2"
-  // //   },
-  // //   {
-  // //     text: 'Silver / Gold / Crystal',
-  // //     value: "3"
-  // //   },
-  // //   {
-  // //     text: 'Ruby / Saphiere',
-  // //     value: "4"
-  // //   },
-  // //   {
-  // //     text: 'Diamond / Pearl / Platinum',
-  // //     value: "6"
-  // //   },
-  // //   {
-  // //     text: 'HeartGold / SoulSilver',
-  // //     value: "7"
-  // //   },
-  // //   {
-  // //     text: 'Black / White',
-  // //     value: "8"
-  // //   },
-  // //   {
-  // //     text: 'Black 2 / White 2',
-  // //     value: "9"
-  // //   },
-  // //   {
-  // //     text:  'X / Y',
-  // //     value: "12, 13, 14"
-  // //   },
-  // //   {
-  // //     text:  'Omega Ruby / Alpha Saphire',
-  // //     value: "15"
-  // //   },
-  // //   {
-  // //     text:  'Sun / Moon',
-  // //     value: "16,17,18,19,20"
-  // //   },
-  // //   {
-  // //     text:  'Ultra Sun / Ultra Moon',
-  // //     value: "21"
-  // //   }
-  // // ]
+  getGameList(): void{
+    this.pokemonService.getGames()
+    .subscribe({
+      next: (res) => {
+        for(let i=0;i < res.jogoData.length; i++){
+          const game = {
+            id: res.jogoData[i].id,
+            name: res.jogoData[i].nome,
+            region: res.jogoData[i].regiao,
+          };
+          this.gameList.push(game)
+        }
+      }
+    })
+  }
 }

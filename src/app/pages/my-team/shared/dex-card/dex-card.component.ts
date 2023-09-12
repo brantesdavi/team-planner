@@ -11,7 +11,6 @@ export class DexCardComponent implements OnInit{
   @Input() pokemon: Pokemon | undefined;
 
   ngOnInit(): void {
-    console.log(this.pokemon)
   }
 
 
