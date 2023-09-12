@@ -1,4 +1,3 @@
-import { Select } from './../../../../models/pokemon.interface';
 import { Component, Input, OnInit } from '@angular/core';
 import { Pokemon } from 'src/app/models/pokemon.interface';
 
@@ -9,22 +8,7 @@ import { Pokemon } from 'src/app/models/pokemon.interface';
 })
 export class PokemonListComponent implements OnInit {
 
-  @Input()
-  pokemonList: Pokemon[] = [];
-
-  pokemonTeam: Pokemon[] = [];
-
-  addPokemonTeam(pkm: Pokemon): void{
-    if(this.pokemonTeam.length < 6){
-      this.pokemonTeam.push(pkm)
-      this.pokemonList = this.pokemonList.filter(objeto => objeto.id !== pkm.id);
-    }
-  }
-
-  removePokemonTeam(pkm:Pokemon): void{
-    this.pokemonList.push(pkm)
-    this.pokemonTeam = this.pokemonTeam.filter(objeto => objeto.id !== pkm.id);
-  }
+  @Input() pokemonList: Pokemon[] = []
 
   ngOnInit() {
   }

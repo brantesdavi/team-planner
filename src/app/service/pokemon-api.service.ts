@@ -19,46 +19,46 @@ export class PokemonApiService {
     });
   }
 
-  getPokemonInfo(url: string): Observable<Pokemon> {
-    const id = this.extractIdFromUrl(url); // passa para a funcao a url e retorna apenas o numero do id para ser pesquisado
-    return this.http.get<any>(url, { headers: this.getHeaders() }).pipe(
-      switchMap((basicInfo) => {
-        return this.http.get<any>(`${this.apiUrl}pokemon/${id}/`, { headers: this.getHeaders() }).pipe(
-          map((details) => {
-            return {
-              name: basicInfo.name,
-              id: details.id,
-              imageDefault: details.sprites.front_default,
-              imageShiny: details.sprites.front_shiny,
-              types: details.types.map((typeInfo: any) => ({
-                slot: typeInfo.slot,
-                name: typeInfo.type.name
-              }))
-            };
-          })
-        );
-      })
-    );
-  }
+  // getPokemonInfo(url: string): Observable<Pokemon> {
+  //   const id = this.extractIdFromUrl(url); // passa para a funcao a url e retorna apenas o numero do id para ser pesquisado
+  //   return this.http.get<any>(url, { headers: this.getHeaders() }).pipe(
+  //     switchMap((basicInfo) => {
+  //       return this.http.get<any>(`${this.apiUrl}pokemon/${id}/`, { headers: this.getHeaders() }).pipe(
+  //         map((details) => {
+  //           return {
+  //             name: basicInfo.name,
+  //             id: details.id,
+  //             imageDefault: details.sprites.front_default,
+  //             imageShiny: details.sprites.front_shiny,
+  //             types: details.types.map((typeInfo: any) => ({
+  //               slot: typeInfo.slot,
+  //               name: typeInfo.type.name
+  //             }))
+  //           };
+  //         })
+  //       );
+  //     })
+  //   );
+  // }
 
-  private extractIdFromUrl(url: string): number {
-    const match = url.match(/\/(\d+)\/$/);
-    if (match) {
-      return parseInt(match[1], 10);
-    }
-    return 0;
-  }
+  // private extractIdFromUrl(url: string): number {
+  //   const match = url.match(/\/(\d+)\/$/);
+  //   if (match) {
+  //     return parseInt(match[1], 10);
+  //   }
+  //   return 0;
+  // }
 
-  getDexLink(num: number): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}pokedex/${num}`)
-  }
+  // getDexLink(num: number): Observable<any>{
+  //   return this.http.get<any>(`${this.apiUrl}pokedex/${num}`)
+  // }
 
-  getGames(): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}version-group/`)
-  }
+  // getGames(): Observable<any>{
+  //   return this.http.get<any>(`${this.apiUrl}version-group/`)
+  // }
 
-  getNewPokemon(): Observable<any>{
-    return this.http.get<any>(`${this.newApi}/jogo/${1}`)
+  getDex(num: number): Observable<any>{
+    return this.http.get<any>(`${this.newApi}/jogo/${num}`)
   }
 
 }

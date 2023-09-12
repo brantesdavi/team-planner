@@ -10,7 +10,6 @@ import { Pokemon } from 'src/app/models/pokemon.interface';
 export class TeamCardComponent implements OnInit {
 
   faPen = faPen;
-  @Input() pokemon: Pokemon | undefined;
 
   ngOnInit(){
 
