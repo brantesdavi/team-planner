@@ -14,6 +14,7 @@ export class MyTeamViewComponent implements OnInit {
   subscription: Subscription | undefined
 
   pokemon$: Observable<Pokemon[]> | null = null; // Inicialize como null ou um Observable vazio
+  types$: Type[] = []; // Inicialize como null ou um Observable vazio
   pokemonList: Pokemon[]= [];
   pokemonTeam: Pokemon[] = []
   gameList: any[]= [];
@@ -21,18 +22,17 @@ export class MyTeamViewComponent implements OnInit {
   gameTitle: string = '';
 
   selectedGame: string= '';
-  type$: any[] = [];
 
   constructor(
     private pokemonService: PokemonApiService
   ){}
 
   ngOnInit(){
-    // this.getPokemonInfo(2);
-    // this.getGames();
-    this.getNewPokemon(1);
+    this.getPokemon(1);
     this.getGameList();
     this.getPokemonGame(1)
+    this.getTypeList()
+
   }
 
   getSelect(op: any): number{
@@ -55,7 +55,7 @@ export class MyTeamViewComponent implements OnInit {
     })
   }
 
-  getNewPokemon(numGame: any): void{
+  getPokemon(numGame: any): void{
     this.pokemonList = []
     this.pokemonTeam = []
 
@@ -89,6 +89,51 @@ export class MyTeamViewComponent implements OnInit {
     })
   }
 
+  getTypeList(): void{
+    this.pokemonService.getTypes()
+    .pipe(
+      map(res =>{
+        res.typesData.forEach((type: { id: number; name: string; icon: string; color: string; }) => {
+          const tempType: Type = {
+            id: type.id,
+            name: type.name,
+            icon: type.icon,
+            color: type.color
+          }
+          this.types$.push(tempType)
+          console.log("aa")
+          console.log(this.types$)
+
+        });
+      })
+    )
+    // .subscribe({
+    //   next: res => console.log(res.typesData)
+    // })
+    // .pipe(
+    //   map(res =>
+    //     console.log(res)
+    //     // for(let i=0;i < res.types.length; i++){
+    //     //   const pokemon: Pokemon = {
+    //     //     id: res.pokemonDoJogo[i].id,
+    //     //     name: res.pokemonDoJogo[i].nome,
+    //     //     sprites: {
+    //     //       normal: res.pokemonDoJogo[i].imagens.normal,
+    //     //       shiny: res.pokemonDoJogo[i].imagens.shiny,
+    //     //       menu: res.pokemonDoJogo[i].imagens.menu,
+    //     //     }
+    //     //     ,
+    //     //     types: {
+    //     //       type_1: res.pokemonDoJogo[i].types.typeId_1,
+    //     //       type_2: res.pokemonDoJogo[i].types.typeId_2 ? res.pokemonDoJogo[i].types.typeId_2: null
+    //     //     },
+    //     //     forms: res.pokemonDoJogo[i].forms ? res.pokemonDoJogo[i].forms : null
+
+    //     //   };
+    //     //   this.pokemonList.push(pokemon)
+    //   )
+    // )
+  }
   getType(typeID: number): any{
     return this.pokemonService.getType(typeID)
       .pipe(
@@ -105,11 +150,11 @@ export class MyTeamViewComponent implements OnInit {
     this.pokemonService.getGames()
     .subscribe({
       next: (res) => {
-        for(let i=0;i < res.jogoData.length; i++){
+        for(let i=0;i < res.gameData.length; i++){
           const game = {
-            id: res.jogoData[i].id,
-            name: res.jogoData[i].nome,
-            region: res.jogoData[i].regiao,
+            id: res.gameData[i].id,
+            name: res.gameData[i].nome,
+            region: res.gameData[i].regiao,
           };
           this.gameList.push(game)
         }

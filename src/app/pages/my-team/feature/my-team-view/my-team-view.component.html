@@ -1,6 +1,6 @@
 <div class="flex justify-center py-4">
   <div class="grid grid-cols-1">
-    <app-combo-box [options]="gameList" class="block" (change)="getNewPokemon($event)" ></app-combo-box>
+    <app-combo-box [options]="gameList" class="block" (change)="getPokemon($event)" ></app-combo-box>
     <app-pokemon-list [pokemonList]="pokemonList" [gameTitle]="gameTitle" [pokemonGame]="selectedGame"></app-pokemon-list>
   </div>
 </div>

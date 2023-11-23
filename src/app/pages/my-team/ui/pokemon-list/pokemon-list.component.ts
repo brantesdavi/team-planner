@@ -36,8 +36,6 @@ export class PokemonListComponent implements OnInit, OnChanges {
       const arrayJSON = JSON.stringify(team)
 
       localStorage.setItem(key, arrayJSON);
-      console.log(key)
-      console.log('Array de objetos salvo no cache com sucesso')
     } catch(er){
       console.error('Erro ao salvar o array no cache: '+er)
     }
@@ -48,7 +46,6 @@ export class PokemonListComponent implements OnInit, OnChanges {
 
     const valorDoCache = localStorage.getItem(key.toString());
 
-    console.log(valorDoCache)
     // if (valorDoCache) {
     //   try {
     //     // Converta o valor do cache de volta para um array de objetos
